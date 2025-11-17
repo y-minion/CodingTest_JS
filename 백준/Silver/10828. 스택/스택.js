@@ -1,3 +1,4 @@
+
 const fs = require("fs");
 
 let input = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
@@ -47,7 +48,7 @@ function sol(input) {
         return stack[method]();
       }
     })
-    .filter((el) => el !== "")
+    .filter((el) => el !== "") //el을 truthy,falthy로 판단하면 안되고 ''(공백)을 대상으로 직접 비교해야한다. -> 0은 거짓 처리되서 원치않는 결과 반환
     .join("\n");
 
   console.log(res);
