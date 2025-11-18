@@ -12,11 +12,6 @@ function sol(input) {
 
   const map = {
     push_front(x) {
-      if (fr === ba) {
-        de[fr] = x;
-        ba++; //주의!
-        return;
-      }
       de[--fr] = x;
     },
     push_back(x) {
