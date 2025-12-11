@@ -7,31 +7,19 @@ let [[N, S], input] = fs
   .split("\n")
   .map((str) => str.split(" ").map((el) => Number(el)));
 
-//input 오름차순으로 정렬하기!
-input.sort((a, b) => a - b);
-
 let count = 0;
-const arr = [];
-
-function sol(x, startIdx) {
-  if (input.length - 1 < startIdx) {
+function sol(x, total) {
+  //최종 마지막 노드에 모든 경우들이 쌓인다.
+  if (x === N) {
+    if (total === S) count++;
     return;
   }
 
-  for (let i = startIdx; i < input.length; i++) {
-    arr[x] = input[i];
-
-    const sum = arr.reduce((acc, num, idx) => {
-      if (x < idx) return acc;
-      return acc + num;
-    }, 0);
-
-    if (sum === S) count++;
-
-    sol(x + 1, i + 1);
-  }
+  sol(x + 1, total);
+  sol(x + 1, total + input[x]);
 }
 
 sol(0, 0);
+if (S === 0) count--;
 
 console.log(count);
