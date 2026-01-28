@@ -10,8 +10,6 @@ let input = fs
 let [[N, M], arrA, arrB] = input;
 
 function sol() {
-  arrA.sort((a, b) => a - b);
-  arrB.sort((a, b) => a - b);
   let idxA = 0;
   let idxB = 0;
   const res = [];
