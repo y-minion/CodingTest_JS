@@ -15,7 +15,7 @@ const appear = new Map();
 function sol() {
   input.forEach((n, i) => {
     map.set(n, (map.get(n) || 0) + 1);
-    if (appear.get(n) || appear.get(n) === 0) return;
+    if (appear.has(n)) return;
     appear.set(n, i);
   });
 
