@@ -1,39 +1,29 @@
 const fs = require("fs");
 
-let input = fs
-  .readFileSync("/dev/stdin")
-  .toString()
-  .trim()
-  .split("\n")
-  .map((el) => Number(el));
+let input = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
 
-const N = input.shift();
-const tmp = [];
-function merge(start, end) {
-  const mid = Math.floor((start + end) / 2);
-  let rIdx = mid;
-  let lIdx = start;
-  for (let i = start; i < end; i++) {
-    if (lIdx === mid) tmp[i] = input[rIdx++];
-    else if (rIdx === end) tmp[i] = input[lIdx++];
-    else if (input[rIdx] >= input[lIdx]) tmp[i] = input[lIdx++];
-    else tmp[i] = input[rIdx++];
-  }
+const N = Number(input.shift());
 
-  for (let i = start; i < end; i++) {
-    input[i] = tmp[i];
-  }
+input = input.map((el) => Number(el));
+
+const move = 10 ** 6;
+const freq = Array.from({ length: move * 2 + 1 }, () => 0);
+const res = [];
+
+function sol() {
+  input.forEach((el) => {
+    const moved = el + move;
+    freq[moved] += 1;
+  });
+
+  freq.forEach((cnt, num) => {
+    if (cnt === 0) return;
+    for (let i = 0; i < cnt; i++) {
+      res.push(num - move);
+    }
+  });
+
+  return res.join("\n");
 }
 
-function mergeSort(start, end) {
-  if (end - start <= 1) return;
-  const mid = Math.floor((start + end) / 2);
-
-  mergeSort(start, mid);
-  mergeSort(mid, end);
-
-  merge(start, end);
-}
-
-mergeSort(0, N);
-console.log(input.join("\n"));
+console.log(sol());
