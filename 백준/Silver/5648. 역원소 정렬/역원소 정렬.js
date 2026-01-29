@@ -1,28 +1,18 @@
 const fs = require("fs");
 
-let input = fs
-  .readFileSync("/dev/stdin")
-  .toString()
-  .trim()
-  .split(/\s+/)
-  .map((char) => Number(char));
+let input = fs.readFileSync("/dev/stdin").toString().trim().split(/\s+/);
 
 const n = input.shift();
 
 function sol() {
-  const arr = input.map((num) => {
-    const arr = [];
-    while (num !== 0) {
-      const rest = num % 10;
-      num = Math.floor(num / 10);
-      arr.push(rest);
-    }
-    return Number(arr.join(""));
+  const arr = input.map((char) => BigInt(char.split("").reverse().join("")));
+  arr.sort((a, b) => {
+    if (a > b) return 1;
+    if (a < b) return -1;
+    return 0;
   });
-
-  arr.sort((a, b) => a - b);
-  return arr;
+  return arr.join("\n");
 }
 
-const res = sol().join("\n");
+const res = sol();
 console.log(res);
