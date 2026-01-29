@@ -13,26 +13,29 @@ function sol() {
     return 0;
   }); //먼저 오름차순 정렬
 
-  let max = [input[0], 0];
-  let cur = [input[0], 0];
+  let mxN = input[0];
+  let mxCnt = -1;
+  let curN = input[0];
+  let curCnt = 0;
   //정렬 배열 순회 ->coreLogic
   input.forEach((num) => {
-    if (cur[0] === num) {
-      cur[1] += 1;
+    if (curN === num) {
+      curCnt++;
     } else {
-      cur = [num, 1];
-    }
-
-    if (max[0] === cur[0]) {
-      max[1] = cur[1];
-    } else {
-      if (max[1] < cur[1]) {
-        max = [num, cur[1]];
+      //계산 빈도수 최소화
+      if (mxCnt < curCnt) {
+        mxN = curN;
+        mxCnt = curCnt;
       }
+
+      curN = num;
+      curCnt = 1;
     }
   });
 
-  return max[0].toString();
+  if (mxCnt < curCnt) mxN = curN;
+
+  return mxN.toString();
 }
 
 const res = sol();
