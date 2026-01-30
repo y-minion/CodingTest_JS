@@ -43,20 +43,17 @@ function sol() {
     }
   });
 
-  //최댓값 찾기
-  for (const val of map.values()) {
-    if (mx < val) mx = val;
-  }
+  //map인 데이터를 배열로 바꾸고 오름차순 정렬한뒤 제일 앞에 있는 책을 반환하면 된다.
+  const arr = [...map];
+  arr.sort((a, b) => {
+    if (a[1] < b[1]) return 1;
+    if (a[1] > b[1]) return -1;
+    else {
+      return a[0].localeCompare(b[0]);
+    }
+  });
 
-  //최다 판매 책 넣기
-  for (const [k, v] of map) {
-    if (v !== mx) continue;
-    mxBooks.push(k);
-  }
-
-  //사전순 정렬
-  mxBooks.sort((a, b) => a.localeCompare(b));
-  return mxBooks[0];
+  return arr[0][0];
 }
 const res = sol();
 console.log(res);
