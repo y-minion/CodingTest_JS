@@ -1,0 +1,77 @@
+// Run by Node.js
+const readline = require('readline');
+
+(async () => {
+	let rl = readline.createInterface({ input: process.stdin });
+
+	const input =[]
+	
+	for await (const line of rl) {
+		input.push(line)
+	}
+	const res=sol(input)
+	console.log(res)
+	
+	process.exit();
+})();
+
+//현재 날짜에서 모두 단풍이 물들었는지 어떻게 알지?
+//-> 우선 isClear라는 불리언 값으로 판단하자. 그래서 만약 0이 아닌 나무 만나면 바로 flase로 바꾸고, 모든 탐색동안 isClear가 true면 현재 날짜에서 -1로 하기.
+function sol(input) {
+	const N=Number(input.shift())
+	let board=input.map((str)=>str.split(' ').map((e)=>Number(e)))
+
+	
+
+	const dr=[0,-1,0,1]
+	const dc=[1,0,-1,0]
+	let day=0;
+
+	
+
+	while(true){
+		let isClear=true
+		for(let i=0;i<N;i++){
+				
+			for(let j=0;j<N;j++){
+				
+				if(board[i][j]!==0){
+					isClear=false
+					break;
+				}
+			}
+			if(!isClear)break
+		}
+
+		if(isClear)break;
+		
+		day++;
+		const tmpBoard=board.map((r)=>[...r])
+		for(let i=0;i<N;i++){
+			for(let j=0;j<N;j++){
+				const curNode = board[i][j]
+
+				if(curNode===0)continue;
+				
+				for(let z=0;z<4;z++){
+					const movedR = i+dr[z]
+					const movedC = j+dc[z]
+					if(movedR<0||N<=movedR||movedC<0||N<=movedC)continue //범위 검사!
+					const movedNode=board[movedR][movedC]
+					if(movedNode!==0)continue;
+					tmpBoard[i][j]=Math.max(0,tmpBoard[i][j]-1); //현재 노드 감소작업.
+				}
+
+				
+				
+			}
+		}
+		board=tmpBoard		
+	}
+
+	return day
+	
+	
+	
+}
+
