@@ -1,0 +1,24 @@
+// Run by Node.js
+const readline = require('readline');
+
+(async () => {
+	let rl = readline.createInterface({ input: process.stdin });
+	const input=[]
+	for await (const line of rl) {
+		input.push(line)
+		
+	}
+	const res=sol(input)
+	console.log(res)
+	
+	process.exit();
+})();
+
+function sol(input){
+	const [A,B]=input[0].split(' ').map((e)=>Number(e))
+
+	let res=(A+B).toFixed(6)
+	
+	// res=Math.floor(res*(10**6))/(10**6)
+	return res
+}
