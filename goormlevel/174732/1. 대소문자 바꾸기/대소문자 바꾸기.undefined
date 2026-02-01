@@ -1,0 +1,29 @@
+// Run by Node.js
+const readline = require('readline');
+
+(async () => {
+	let rl = readline.createInterface({ input: process.stdin });
+	const input = []
+	
+	for await (const line of rl) {
+		input.push(line)
+	}
+	const res=sol(input)
+	console.log(res)
+	
+	process.exit();
+})();
+
+function sol(input){
+	input.shift()
+	const arr=input[0].split('')
+	const res=arr.map((e)=>{
+		if(e===e.toUpperCase())return e.toLowerCase()
+		return e.toUpperCase()
+		
+	})
+
+	return res.join('')
+	
+	}
+
